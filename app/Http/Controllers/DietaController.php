@@ -70,7 +70,7 @@ class DietaController extends Controller
 
         $dieta->save();
 
-        return redirect('dietas');
+        return redirect('dietas')->with('correcto','¡Se guerdo la dieta correctamente!');
     }
 
     /**
@@ -127,7 +127,7 @@ class DietaController extends Controller
 
         $dieta->update();
 
-        return redirect('dietas');
+        return redirect('dietas')->with('correcto','¡Dieta actualizada correctamente!');
     }
 
     /**
@@ -140,6 +140,6 @@ class DietaController extends Controller
     {
         Dieta::find($id)->delete();
 
-        return redirect('dietas');
+        return redirect('dietas')->with('error','¡Se elimino la dieta correctamente!');
     }
 }

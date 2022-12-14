@@ -87,7 +87,7 @@ class SensorRegistroController extends Controller
 
         $sensorRegistro->save();
 
-        return redirect('sensores');
+        return redirect('sensores')->with('correcto','¡Se registro el sensor correctamente!');
     }
 
     /**
@@ -161,7 +161,7 @@ class SensorRegistroController extends Controller
 
         $sensorRegistro->update();
 
-        return redirect('sensores');
+        return redirect('sensores')->with('correcto','¡Sensor actualizado correctamente!');
     }
 
     /**
@@ -174,7 +174,7 @@ class SensorRegistroController extends Controller
     {
         SensorRegistro::find($id)->delete();
 
-        return redirect('sensores');
+        return redirect('sensores')->with('error','¡Sensor eliminado!');
     }
 
     public static function criaSaludable($temperatura, $corazon, $respiracion, $sangre)

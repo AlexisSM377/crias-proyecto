@@ -64,7 +64,7 @@ class ProveedorController extends Controller
 
         Proveedor::create($request->all());
 
-        return redirect('proveedores');
+        return redirect('proveedores')->with('correcto','El proveedor se registro correctamente!');
     }
 
     /**
@@ -122,7 +122,7 @@ class ProveedorController extends Controller
 
         Proveedor::find($id)->update($request->all());
 
-        return redirect('proveedores');
+        return redirect('proveedores')->with('correcto','¡Se actualizo el proveedor correctamente!');
     }
 
     /**
@@ -135,6 +135,6 @@ class ProveedorController extends Controller
     {
         Proveedor::find($id)->delete();
 
-        return redirect('proveedores');
+        return redirect('proveedores')->with('error','¡Se elimino el proveedor correctamente!');
     }
 }
