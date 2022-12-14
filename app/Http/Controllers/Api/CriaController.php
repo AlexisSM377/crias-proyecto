@@ -16,7 +16,7 @@ class CriaController extends Controller
     public function index()
     {
         return response()->json([
-            'crias' => Cria::with(['corral', 'clasificacionCarne', 'proceso', 'proveedor'])->get()
+            'crias' => Cria::all()
         ]);
     }
 
@@ -53,7 +53,7 @@ class CriaController extends Controller
     public function show($id)
     {
         return response()->json([
-                    'cria' => Cria::with(['corral', 'clasificacionCarne', 'proceso', 'proveedor'])->find($id)
+                    'cria' => Cria::find($id)
                 ]);
     }
 

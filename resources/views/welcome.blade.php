@@ -31,6 +31,7 @@
             <div id="content">
                 @include('components.topbar')
                 <div class="container-fluid">
+                    @include('components.alertas')
                     @yield('content')
                 </div>
             </div>

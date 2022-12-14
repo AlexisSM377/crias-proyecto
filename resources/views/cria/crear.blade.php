@@ -5,9 +5,8 @@
 <h1 class="h3 mb-2 text-gray-800">Registro de cría</h1>
 <div class="card">
   <div class="card-body">
-    <form action="{{ route('crias.store') }}" method="POST">   
+    <form action="{{ route('crias.store') }}" enctype="multipart/form-data" method="POST">   
       @csrf
-
       <div class="row">
         <div class="col">
           <div class="form-group">
@@ -21,7 +20,6 @@
           </div>
         </div>
 
-      <div class="row">
         <div class="col">
           <div class="form-group">
             <label for="imagen">Imagen</label>
@@ -32,7 +30,6 @@
                   </span>
               @enderror
           </div>
-        </div>
         </div>
 
         <div class="col">

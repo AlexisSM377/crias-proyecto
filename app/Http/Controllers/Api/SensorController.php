@@ -16,7 +16,7 @@ class SensorController extends Controller
     public function index()
     {
         return response()->json([
-                            'sensores' => SensorRegistro::with('cria')->get()
+                            'sensores' => SensorRegistro::get()
                         ]);
     }
 
@@ -54,7 +54,7 @@ class SensorController extends Controller
     public function show($id)
     {
         return response()->json([
-                            'sensorRegistro' => SensorRegistro::with('cria')->find($id)
+                            'sensorRegistro' => SensorRegistro::find($id)
                         ]);
     }
 

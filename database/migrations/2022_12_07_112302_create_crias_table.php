@@ -15,7 +15,7 @@ return new class () extends Migration {
         Schema::create('crias', function (Blueprint $table) {
             $table->id();
             $table->string('nombre')->comment('Nombre con la que se identifica la cría');
-            $table->string('url_imagen');
+            $table->string('url_imagen')->nullable();
             $table->double('peso', 11, 2)->comment('Peso de la cría');
             $table->integer('color_muscular')->comment('Color de musculo, 3-5: Grasa tipo 1, 1,2,6,7: Grasa tipo 2');
             $table->integer('marmoleo')->comment('Calidad de marmoleo en escala de 1-5');

@@ -22,7 +22,6 @@ class CriaFactory extends Factory
     {
         return [
             'nombre' => fake()->text($maxNbChars = 20),
-            'url_imagen'=>$this->faker->imageUrl($width = 640, $height = 480),
             'peso' => fake()->numberBetween($min = 30, $max = 80),
             'color_muscular' => fake()->numberBetween($min = 1, $max = 7),
             'marmoleo' => fake()->numberBetween($min = 1, $max = 5),

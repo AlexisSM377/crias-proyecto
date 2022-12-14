@@ -15,6 +15,6 @@ class CriaSeeder extends Seeder
      */
     public function run()
     {
-        Cria::factory()->count(50)->create();
+        Cria::factory()->count(1)->create();
     }
 }

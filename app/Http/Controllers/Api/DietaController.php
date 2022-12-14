@@ -16,7 +16,7 @@ class DietaController extends Controller
     public function index()
     {
         return response()->json([
-                    'dietas' => Dieta::with('cria')->get()
+                    'dietas' => Dieta::get()
                 ]);
     }
 
@@ -54,7 +54,7 @@ class DietaController extends Controller
     public function show($id)
     {
         return response()->json([
-                            'dieta' => Dieta::with('cria')->find($id)
+                            'dieta' => Dieta::find($id)
                         ]);
     }
 

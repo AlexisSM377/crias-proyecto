@@ -4,7 +4,10 @@
 <h1 class="h3 mb-2 text-gray-800">Actualización de cría</h1>
 <div class="card">
   <div class="card-body">
-    <form action="{{ route('crias.update', $cria->id) }}" method="POST">   
+    @if ($cria->url_imagen != null)
+            <img src="{{ asset("images/$cria->url_imagen") }}" class="rounded mx-auto d-block" alt="..." height="300"> 
+    @endif
+    <form action="{{ route('crias.update', $cria->id) }}" method="POST" enctype="multipart/form-data">   
       @csrf
       @method('PUT')
       <div class="row">
@@ -19,18 +22,20 @@
             @enderror
           </div>
         </div>
-        <div class="row mb-3">
-          <label for="imagen" class="col-md-4 col-form-label text-md-end">Imagen</label>
-          <div class="col-md-6">
-              <input type="file" class="form-control @error('imagen') is-invalid @enderror" id="imagen" name="imagen">
-              @error('imagen')
-                  <span class="invalid-feedback" role="alert">
-                      <strong>{{ $message }}</strong>
-                  </span>
-              @enderror
-          </div>
 
+        <div class="col">
+          <div class="form-group">
+            <label for="imagen">Imagen</label>
+
+                <input type="file" class="form-control @error('imagen') is-invalid @enderror" id="imagen" name="imagen">
+                @error('imagen')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+          </div>
         </div>
+
         <div class="col">
           <div class="form-group">
             <label for="peso">Peso</label>

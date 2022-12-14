@@ -22,7 +22,6 @@ class CriaController extends Controller
             'crias' => $crias
         ]);
     }
-
     public function criasEliminadas()
     {
         $crias = Cria::onlyTrashed()->get();
@@ -30,7 +29,6 @@ class CriaController extends Controller
             'crias' => $crias
         ]);
     }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -45,7 +43,6 @@ class CriaController extends Controller
             'corrales' => $corrales,
         ]);
     }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -57,7 +54,7 @@ class CriaController extends Controller
         $request->validate(
             [
             'nombre' => 'required',
-            'imagen' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'imagen' => 'required|image|mimes:jpeg,png,jpg|max:2048',
             'descripcion' => 'required',
             'peso' => 'required|numeric',
             'color_muscular' => 'required|numeric|between:1,7',
@@ -68,7 +65,7 @@ class CriaController extends Controller
         ],
             [
                 'nombre.required' => 'El nombre es requerido',
-                'imagen.required' => 'La imagen es requerido',
+                'imagen.required' => 'La imagen es requerida',
                 'descripcion.required' => 'La descripcion es requerida',
                 'peso.required' => 'El peso es requerido',
                 'peso.numeric' => 'El peso debe ser un número',
@@ -82,26 +79,12 @@ class CriaController extends Controller
                 'costo.numeric' => 'El costo debe ser numero',
                 'proveedor.required' => 'El proveedor es requerido',
                 'corral.required' => 'EL corral es requerido.',
-            ],
-            [
-                'nombre' => 'nombre',
-                'nombre' => 'imagen',
-                'descripcion' => 'descripción',
-                'peso' => 'peso',
-                'color_muscular' => 'color muscular',
-                'marmamoleo' => 'marmoleo',
-                'costo' => 'costo',
-                'proceso' => 'proceso',
-                'proveedor' => 'proveedor',
-                'corral' => 'corral',
-            ]
+            ] 
         );
-
         //creacion del nombre de la imagen subida
         $imageName = time().'.'.$request->imagen->extension();
         //guarddado de la imagen en la carpetas imagenes
         $request->imagen->move(public_path('images'), $imageName);
-
         $calf = new Cria();
         $calf->nombre = $request->nombre;
         $calf->url_imagen = $imageName;
@@ -117,12 +100,9 @@ class CriaController extends Controller
         $tipoCarne = $this->obtenerClasificacionCarne($request->peso, $request->musculo, $request->marmoleo);
         $clasificacionCarne = ClasificacionCarne::find($tipoCarne);
         $calf->clasificacion_carne_id = $clasificacionCarne->id;
-
         $calf->save();
-
-        return redirect('crias');
+        return redirect('crias')->with('correcto','¡Cría guardada correctamente!');
     }
-
     /**
      * Display the specified resource.
      *
@@ -136,7 +116,6 @@ class CriaController extends Controller
             'cria' => $cria
         ]);
     }
-
     /**
      * Show the form for editing the specified resource.
      *
@@ -154,7 +133,6 @@ class CriaController extends Controller
             'corrales' => $corrales
         ]);
     }
-
     /**
      * Update the specified resource in storage.
      *
@@ -167,7 +145,7 @@ class CriaController extends Controller
         $request->validate(
             [
             'nombre' => 'required',
-            'imagen' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'imagen' => 'image|mimes:jpeg,png,jpg|max:2048',
             'descripcion' => 'required',
             'peso' => 'required|numeric',
             'color_muscular' => 'required|numeric|between:1,7',
@@ -178,7 +156,6 @@ class CriaController extends Controller
                 ],
             [
                 'nombre.required' => 'El nombre es requerido',
-                'imagen.required' => 'La imagen es requerida',
                 'descripcion.required' => 'La descripcion es requerida',
                 'peso.required' => 'El peso es requerido',
                 'peso.numeric' => 'El peso debe ser un número',
@@ -192,40 +169,24 @@ class CriaController extends Controller
                 'costo.numeric' => 'El costo debe ser numero',
                 'proveedor.required' => 'El proveedor es requerido',
                 'corral.required' => 'EL corral es requerido.',
-            ],
-            [
-                'nombre' => 'nombre',
-                'imagen' => 'imagen',
-                'descripcion' => 'descripción',
-                'peso' => 'peso',
-                'color_muscular' => 'color muscular',
-                'marmamoleo' => 'marmoleo',
-                'costo' => 'costo',
-                'proceso' => 'proceso',
-                'proveedor' => 'proveedor',
-                'corral' => 'corral',
             ]
         );
-
         //guardar la cria con la informacion del formulario
         $calf = Cria::find($id);
-
         if ($request->imagen != null) {
             //eliminar la imganen anterior para guardar la nueva imagen
-            unlink("images/".$calf->url_imagen);
-
+            if ($calf->url_imagen != null) {
+                unlink("images/".$calf->url_imagen);
+            }   
              //creacion del nombre de la nueva imagen subida
             $imageName = time().'.'.$request->imagen->extension();
             //guardddo de la nueva imagen en la carpetas imagenes
             $request->imagen->move(public_path('images'), $imageName);
         }
-
         $calf->nombre = $request->nombre;
         if ($request->imagen != null) {
             $calf->url_imagen = $imageName;
-        }
-
-        
+        }        
         $calf->nombre = $request->nombre;
         $calf->descripcion = $request->descripcion;
         $calf->color_muscular = $request->color_muscular;
@@ -239,12 +200,9 @@ class CriaController extends Controller
         $tipoCarne = $this->obtenerClasificacionCarne($request->peso, $request->musculo, $request->marmoleo);
         $clasificacionCarne = ClasificacionCarne::find($tipoCarne);
         $calf->clasificacion_carne_id = $clasificacionCarne->id;
-
         $calf->update();
-
-        return redirect('crias');
+        return redirect('crias')->with('correcto','¡Cría actualizada correctamente!');
     }
-
     /**
      * Remove the specified resource from storage.
      *
@@ -254,9 +212,8 @@ class CriaController extends Controller
     public function destroy($id)
     {
         Cria::find($id)->delete();
-        return redirect('crias');
+        return redirect('crias')->with('error','¡Se elimino correctamente!');
     }
-
     public static function obtenerClasificacionCarne($peso, $colorMuscular, $marmoleo)
     {
         $tipoDeCarne = 0;
@@ -265,7 +222,6 @@ class CriaController extends Controller
             $tipoDeCarne = 1;
             return $tipoDeCarne;
         }
-
         // Clasificación de carne GRASA TIPO 2.
         $tipoDeCarne = 2;
         return $tipoDeCarne;

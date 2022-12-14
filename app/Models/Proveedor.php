@@ -24,6 +24,6 @@ class Proveedor extends Model
      */
     public function crias()
     {
-        return $this->hasMany(Cria::class);
+        return $this->hasMany(Cria::class)->withTrashed();
     }
 }

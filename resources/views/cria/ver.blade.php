@@ -1,15 +1,12 @@
 @extends('welcome')
 
 @section('content')
-
-<div class="card mt-3">
-    <div class="row g-0">
-        <div class="col-4">
-            <img src="{{ asset("images/$calf->url_imagen") }}" class="card-img-top " alt="..." height="300">
-        </div>
 <h1 class="h3 mb-2 text-gray-800">Información de la cría</h1>
 <div class="card">
     <div class="card-body">
+        @if ($cria->url_imagen != null)
+            <img src="{{ asset("images/$cria->url_imagen") }}" class="rounded mx-auto d-block" alt="..." height="300"> 
+        @endif
         <div class="row">
             <div class="col">
                 <p class="card-title font-weight-bold">Nombre</p>
